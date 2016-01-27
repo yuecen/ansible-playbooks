@@ -1,0 +1,5 @@
+---
+- hosts: solr_*
+  remote_user: root
+  roles:
+    - topbeat

@@ -1,0 +1,28 @@
+---
+- name: creating folder
+  file: path=/root/shipper/topbeat state=directory
+
+- name: downloading topbeat
+  copy: 
+    src: topbeat
+    force: no
+    dest: /root/shipper/topbeat
+    mode: 0755
+
+- name: updating topbeat.yaml
+  copy: 
+    src: topbeat.yml
+    dest: /root/shipper/topbeat/topbeat.yml
+
+- name: copying init file as service
+  copy:
+    src: init_topbeat.conf
+    dest: /etc/init/topbeat.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: restaring topbeat
+  service:
+    name: topbeat
+    state: restarted
